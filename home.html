@@ -1,0 +1,1238 @@
+<html>
+    <head>
+        <title>Restaurants</title>
+        <link rel="stylesheet" type="text/css" href="Project2.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    </head>
+    <body>
+        <h1 style =" text-align: center">Restaurants</h1>
+        <div class="w3-bar w3-black">
+           
+            <!-- Sorting Buttons -->
+            <div class = "w3-bar-item w3-left "> 
+                    <button class = "w3-button w3-round-xlarge w3-orange" onclick = "sortByName()"> Sort By Name</button>
+            </div>
+            <div class = "w3-bar-item w3-left "> 
+                <button class = "w3-button w3-round-xlarge w3-orange" onclick = "sortByAddress()"> Sort By Address</button> X: <input name = "userX" type="text" size ="3">  Y: <input name = "userY" type="text" size ="3">
+            </div>
+             <!-- Admin Sign In button -->
+             <div class = "w3-bar-item w3-right"> 
+                    <button class = "w3-button w3-round-xlarge w3-orange" id = "adminSignIn" type="button" onclick="adminSignIn()"> Sign in As Admin</button>
+            </div>
+        </div>
+        <!-- Restaurant Table -->
+        <div class = "center"> 
+            <table id= "Restaurants">
+                <tr class = "w3-black">
+                    <th id ='restaurantCheckbox' hidden = "true"> </th>
+                    <th>Restaurant</th>
+                    <th>Address</th>
+                    <th>Menu</th>
+                    <th>Opening Hours</th>
+                </tr>
+            </table>
+            <!-- add Restaurant -->
+            <button id= 'add' type= "button" onclick="addRestaurant()" hidden = "true">Add Restaurant </button>
+            <!-- delete Restaurant -->
+            <button id= 'delete' type="button" onclick="deleteRestaurant()" hidden = "true">Delete Restaurant</button>
+            <!-- edit Restaurant -->
+            <button id= 'edit' type="button" onclick="editRestaurantHours()" hidden = "true">Edit Restaurant Hours</button>
+        </div>  
+       
+        <!-- Sign In Modal -->
+        <div id= 'signInModal' class="modal">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <p>Username: <input id =  "username" name= "username" type="text"></p>
+                <p>Password: <input id =  "password" name = "password" type="text"></p>
+            <button onclick= "signIn()">Sign In</button>
+            <button onclick = "adminSignInCancel()">Cancel</button>
+            </div>
+        </div>
+        <!-- Add Restaurant Modal -->
+        <div id= 'addRestaurantModal' class="modal">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <p class = "Restaurant"><b>Restaurant:</b><input name="restaurantName" type="text"></p>
+                <p class = "Address"><b>Address:</b><input name= 'address1' type="text" size ="5"> , <input name = "address2" type= "text" size ="5"></p>
+                <p class = "isFranchise"><b>Is Franchise:</b> <input  name = 'franchise' type="radio" value="Yes" onclick="isFranchise(this)">Yes <input  name = 'franchise' type="radio" value="No" onclick="isFranchise(this)">No</p>
+                <div class = "Menu" hidden = "true">
+                    <button id ="addMenu" onclick = "addMenu()" hidden = "true"> Add New Menu</button>
+                    <button id = "addMenuItem" onclick = "addMenuItem()" hidden = "true">Add New Menu Item</button>
+                    <button id = "editMenuItem" onclick = "editMenuItem()" hidden = "true">Edit Menu Item</button>
+                    <button id = "deleteMenuItem" onclick = "deleteMenuItem()" hidden = "true">Delete Menu Item</button>
+                    <div id = "createMenu"></div>
+                </div>
+                <p class = "openingHours"><b>Opening Hours: </b> 
+                    <select id="day">
+                            <option value = "Monday">Monday</option>
+                            <option value = "Tuesday">Tuesday</option>
+                            <option value = "Wednesday">Wednesday</option>
+                            <option value = "Thursday">Thursday</option>
+                            <option value = "Friday">Friday</option>
+                            <option value = "Saturday">Saturday</option>
+                            <option value = "Sunday">Sunday</option>
+                        </select>
+                        &nbsp;
+                        <select id ="fromHours"> 
+                            <option value = "1"> 1 </option>
+                            <option value = "2"> 2 </option> 
+                            <option value = "3"> 3 </option>
+                            <option value = "4"> 4 </option>
+                            <option value = "5"> 5 </option>
+                            <option value = "6"> 6 </option>
+                            <option value = "7"> 7 </option>
+                            <option value = "8"> 8 </option>
+                            <option value = "9"> 9 </option>
+                            <option value = "10"> 10 </option>
+                            <option value = "11"> 11 </option>
+                            <option value = "12"> 12 </option>
+                        </select>
+                        :
+                        <select id = "fromMin">
+                            <option value = "00"> 00 </option>
+                            <option value = "01"> 01 </option>
+                            <option value = "02"> 02 </option> 
+                            <option value = "03"> 03 </option>
+                            <option value = "04"> 04 </option>
+                            <option value = "05"> 05 </option>
+                            <option value = "06"> 06 </option>
+                            <option value = "07"> 07 </option>
+                            <option value = "08"> 08 </option>
+                            <option value = "09"> 09 </option>
+                            <option value = "10"> 10 </option>
+                            <option value = "11"> 11 </option>
+                            <option value = "12"> 12 </option>
+                            <option value = "13"> 13 </option>
+                            <option value = "14"> 14 </option> 
+                            <option value = "15"> 15 </option>
+                            <option value = "16"> 16</option>
+                            <option value = "17"> 17</option>
+                            <option value = "18"> 18 </option>
+                            <option value = "19"> 19 </option>
+                            <option value = "20"> 20 </option>
+                            <option value = "21">21</option>
+                            <option value = "22">22</option>
+                            <option value = "23">23</option>
+                            <option value = "24">24</option>
+                            <option value = "25">25</option>
+                            <option value = "26">26</option>
+                            <option value = "27">27</option>
+                            <option value = "28">28</option>
+                            <option value = "29">29</option>
+                            <option value = "30">30</option>
+                            <option value = "31">31</option>
+                            <option value = "32">32</option>
+                            <option value = "33">33</option>
+                            <option value = "34">34</option>
+                            <option value = "35">35</option>
+                            <option value = "36">36</option>
+                            <option value = "37">37</option>
+                            <option value = "38">38</option>
+                            <option value = "39">39</option>
+                            <option value = "40">40</option>
+                            <option value = "41">41</option>
+                            <option value = "42">42</option>
+                            <option value = "43">43</option>
+                            <option value = "44">44</option>
+                            <option value = "45">45</option>
+                            <option value = "46">46</option>
+                            <option value = "47">47</option>
+                            <option value = "48">48</option>
+                            <option value = "49">49</option>
+                            <option value = "50">50</option>
+                            <option value = "51">51</option>
+                            <option value = "52">52</option>
+                            <option value = "53">53</option>
+                            <option value = "54">54</option>
+                            <option value = "55">55</option>
+                            <option value = "56">56</option>
+                            <option value = "57">57</option>
+                            <option value = "58">58</option>
+                            <option value = "59">59</option>
+                        </select>
+                        <select id = "fromMeridiem">
+                            <option value = "AM">AM</option>
+                            <option value = "PM">PM</option>
+                        </select>
+                        &nbsp;To&nbsp; 
+                        <select id ="toHours"> 
+                                <option value = "1"> 1 </option>
+                                <option value = "2"> 2 </option> 
+                                <option value = "3"> 3 </option>
+                                <option value = "4"> 4 </option>
+                                <option value = "5"> 5 </option>
+                                <option value = "6"> 6 </option>
+                                <option value = "7"> 7 </option>
+                                <option value = "8"> 8 </option>
+                                <option value = "9"> 9 </option>
+                                <option value = "10"> 10 </option>
+                                <option value = "11"> 11 </option>
+                                <option value = "12"> 12 </option>
+                        </select>
+                        <select id = "toMin">
+                            <option value = "00"> 00 </option> 
+                            <option value = "01"> 01 </option>
+                            <option value = "02"> 02 </option> 
+                            <option value = "03"> 03 </option>
+                            <option value = "04"> 04 </option>
+                            <option value = "05"> 05 </option>
+                            <option value = "06"> 06 </option>
+                            <option value = "07"> 07 </option>
+                            <option value = "08"> 08 </option>
+                            <option value = "09"> 09 </option>
+                            <option value = "10"> 10 </option>
+                            <option value = "11"> 11 </option>
+                            <option value = "12"> 12 </option>
+                            <option value = "13"> 13 </option>
+                            <option value = "14"> 14 </option> 
+                            <option value = "15"> 15 </option>
+                            <option value = "16"> 16</option>
+                            <option value = "17"> 17</option>
+                            <option value = "18"> 18 </option>
+                            <option value = "19"> 19 </option>
+                            <option value = "20"> 20 </option>
+                            <option value = "21">21</option>
+                            <option value = "22">22</option>
+                            <option value = "23">23</option>
+                            <option value = "24">24</option>
+                            <option value = "25">25</option>
+                            <option value = "26">26</option>
+                            <option value = "27">27</option>
+                            <option value = "28">28</option>
+                            <option value = "29">29</option>
+                            <option value = "30">30</option>
+                            <option value = "31">31</option>
+                            <option value = "32">32</option>
+                            <option value = "33">33</option>
+                            <option value = "34">34</option>
+                            <option value = "35">35</option>
+                            <option value = "36">36</option>
+                            <option value = "37">37</option>
+                            <option value = "38">38</option>
+                            <option value = "39">39</option>
+                            <option value = "40">40</option>
+                            <option value = "41">41</option>
+                            <option value = "42">42</option>
+                            <option value = "43">43</option>
+                            <option value = "44">44</option>
+                            <option value = "45">45</option>
+                            <option value = "46">46</option>
+                            <option value = "47">47</option>
+                            <option value = "48">48</option>
+                            <option value = "49">49</option>
+                            <option value = "50">50</option>
+                            <option value = "51">51</option>
+                            <option value = "52">52</option>
+                            <option value = "53">53</option>
+                            <option value = "54">54</option>
+                            <option value = "55">55</option>
+                            <option value = "56">56</option>
+                            <option value = "57">57</option>
+                            <option value = "58">58</option>
+                            <option value = "59">59</option>
+                        </select>
+                        <select id = "toMeridiem">
+                            <option value = "AM">AM</option>
+                            <option value = "PM">PM</option>
+                        </select>
+                        <button onclick= "addOpenHour()">Add Open Hour</button>
+                        <ul id = "openHoursList">
+                        </ul>
+                </p>
+                <button id="submitNewRest" type ="button" onclick="submitNewRestaurant()">Submit</button>
+                <button id="addRestaurantCancel" onclick= "addRestaurantCancel()">Cancel</button>
+            </div>
+        </div>
+        <p id = "demo"></p>
+        <!-- Add New Menu Item Modal -->
+        <div id= 'newmenuItemModel' class="modal">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <p>Menu Item: <input name= "menuItem" type="text" size = "15"></p>
+                <p id = "Price"> Size: <input name = "menuItemSize" type="text" size = "8"> Price: $<input name = "menuItemPrice" type="text" size = "8"></p>
+            <button id = "addAnotherSizePrice" onclick = "addAnotherSizePrice()"> Add Another Size and Price</button>
+            <button id = "submitNewMenuItem" onclick= "submitNewMenuItem()">Submit</button>
+            <button id = "addMenuItemCancel" onclick = "addMenuItemCancel()">Cancel</button>
+            </div>
+        </div>
+
+    </body>
+    <script>
+        var admin = {"admin":"admin"};
+        var adminMode = false;
+        var Restaurants;
+        var Menu;
+        var restaurantBoxesChecked = 0;
+        var menuBoxesChecked = 0;
+        var menuItemBoxesChecked = 0;
+        var restaurantEdit;
+        var menuEdit = "";
+        var menuItemEdit = "";
+        var inMenuEdit = false;
+        var dayOrder = {Monday: 1,Tuesday:2, Wednesday:3, Thursday:4,Friday:5,Saturday:6, Sunday:7};
+        var menuNum = 0;
+        var newPriceField = 0;
+        var mode;
+        var offset = 1;
+        var index = document.getElementById('Restaurants').rows.length - offset;
+        var restAddExist = false;
+        var restExist = false;
+        var addExist = false;
+        var franchiseExist = false;
+        var hrEditsMode = false;
+        var menuItemExist = false;
+        var menuRestaurantName;
+        loadRestaurant();
+        //admin Sign In
+        function adminSignIn(){
+            document.getElementById('signInModal').style.display = "block";
+        }
+        //close admin sign in
+        function adminSignInCancel(){
+            document.getElementById('signInModal').style.display = "none";
+        }
+        //sign In admin and show Admin Mode
+        function signIn(){
+            username = document.getElementsByName('username')[0].value;
+            password = document.getElementsByName('password')[0].value;
+            //check to see if admin exist
+            if(admin[username] != undefined && admin[username] == password){
+
+                for(i = 0; i < document.getElementsByClassName("restaurantCheck").length; i++){
+                    document.getElementsByClassName("restaurantCheck")[i].hidden = false;
+                }
+                for(i = 0 ; i<document.getElementsByName("ListCheck").length;i++){
+                    document.getElementsByName("ListCheck")[i].hidden = false;   
+                }
+                for(i = 0; i< document.getElementsByName("editMenuBox").length;i++){
+                    document.getElementsByName("editMenuBox")[i].hidden = false;
+                }
+                document.getElementById('restaurantCheckbox').hidden = false;
+                document.getElementById("add").hidden = false;
+                document.getElementById("delete").hidden = false;
+                document.getElementById("edit").hidden = false;
+                document.getElementById("adminSignIn").setAttribute("onclick", "signOut()");
+                document.getElementById("addMenu").hidden = false;
+                document.getElementById("addMenuItem").hidden = false;
+                document.getElementById("editMenuItem").hidden = false;
+                document.getElementById("deleteMenuItem").hidden = false;
+                document.getElementById("adminSignIn").innerText = "Sign Out";
+                adminMode = true;
+                adminSignInCancel();
+            }
+            else alert("So such admin exists");
+            document.getElementsByName('username')[0].value = "";
+            document.getElementsByName('password')[0].value = "";
+        }
+        //sign Out admin and hide Admin Mode
+        function signOut(){
+            for(i = 0; i < document.getElementsByClassName("restaurantCheck").length; i++){
+                document.getElementsByClassName("restaurantCheck")[i].hidden = true;
+            }
+            for(i = 0 ; i<document.getElementsByName("ListCheck").length;i++){
+                document.getElementsByName("ListCheck")[i].hidden = true;   
+            }
+            for(i = 0; i< document.getElementsByName("editMenuBox").length;i++){
+                document.getElementsByName("editMenuBox")[i].hidden = true;
+            }
+            document.getElementById('restaurantCheckbox').hidden = true;
+            document.getElementById("add").hidden = true;
+            document.getElementById("delete").hidden = true;
+            document.getElementById("edit").hidden = true;
+            document.getElementById("addMenu").hidden = true;
+            document.getElementById("addMenuItem").hidden = true;
+            document.getElementById("editMenuItem").hidden = true;
+            document.getElementById("deleteMenuItem").hidden = true;
+            document.getElementById("adminSignIn").setAttribute("onclick", "adminSignIn()");
+            document.getElementById("adminSignIn").innerText = "Sign In as Admin";
+            adminMode = false;
+        }   
+        //Display Add Restaurant Modal
+        function addRestaurant(){
+            document.getElementById("addRestaurantModal").style.display = "block"; 
+            document.getElementsByClassName("Restaurant")[0].hidden = false;
+            document.getElementsByClassName("Address")[0].hidden = false;
+            document.getElementsByClassName("isFranchise")[0].hidden = false;
+            document.getElementsByClassName("Menu")[0].hidden = true;
+            document.getElementsByClassName("openingHours")[0].hidden = false;
+            document.getElementById("editMenuItem").hidden = true;
+            document.getElementById("deleteMenuItem").hidden = true;
+            document.getElementById("submitNewRest").setAttribute("onclick", "submitNewRestaurant()");
+            document.getElementById("submitNewRest").hidden = false;
+            document.getElementById("submitNewRest").innerHTML = "Submit";
+            document.getElementById("addRestaurantCancel").setAttribute("onclick", "addRestaurantCancel()");
+            document.getElementById("addRestaurantCancel").innerHTML = "Cancel";
+        }
+        //resetTable add Restaurant Modal 
+        function addRestaurantCancel(){
+            document.getElementById("addRestaurantModal").style.display = "none"; 
+            document.getElementsByClassName("Menu")[0].hidden = true;  
+            document.getElementsByName("restaurantName")[0].value = "";
+            document.getElementsByName("address1")[0].value = "";
+            document.getElementsByName('address2')[0].value = "";
+            document.getElementsByName('franchise')[0].checked = false;
+            document.getElementsByName('franchise')[1].checked = false;
+            document.getElementById("editMenuItem").hidden = false;
+            document.getElementById("deleteMenuItem").hidden = false; 
+            var openHrList = document.getElementById("openHoursList");
+            var openHourListItems = openHrList.getElementsByTagName("li");
+            for(i = openHourListItems.length; i > 0; i--){
+                openHrList.removeChild(openHrList.childNodes[i]);
+            }
+            var container = document.getElementById("createMenu");
+           
+            for(i = menuNum; i> 0; i--){
+                container.removeChild(container.lastElementChild);
+                container.removeChild(container.lastElementChild);
+            }
+            menuNum = 0;
+
+        }
+        //submit User input of New Restaurant
+        function submitNewRestaurant(){
+            if(document.getElementsByName('restaurantName')[0].value == '' ||  document.getElementsByName('address1')[0].value  == '' || document.getElementsByName('address2')[0].value == ''){
+                alert("Please Fill Restaurant Name and Address before Proceeding ");
+            }
+            else{
+                checkFranchise();
+                if(!franchiseExist) alert("Create a Menu with atleast One item before proceeding");
+                else{
+                    var restaurantName = document.getElementsByName('restaurantName')[0].value
+                    var address1 = document.getElementsByName('address1')[0].value;
+                    var address2 = document.getElementsByName('address2')[0].value;
+                    var openHrList = document.getElementById("openHoursList");
+                    var openHourListItems = openHrList.getElementsByTagName("li");
+                    if(openHourListItems.length < 1) alert("Set Restaurants Opening Hours before Proceeding");
+                    else {
+                        var openHours = "";
+                        for(i = 0; i< openHourListItems.length; i++){
+                            if(i == openHourListItems.length - 1) openHours += openHourListItems[i].innerHTML.split("<")[0];
+                            else openHours += openHourListItems[i].innerHTML.split("<")[0] + ",";
+                        }
+                        mode = "addRestaurant";
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function(){
+                            if(this.readyState == 4 && this.status == 200){
+                                //reload table
+                                addRestaurantCancel();
+                                resetTable(); 
+                                }
+                        }
+                        xhttp.open("GET","Project2.php?mode="+mode+"&name="+restaurantName+"&address1="+address1+"&address2="+address2+"&openHours="+openHours, false);
+                        xhttp.send();
+                         
+                    }
+                       
+                }   
+            }
+        }
+        //load Restaurants from database
+        function loadRestaurant(){
+            mode = "loadRestaurants";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange= function (){
+                if (this.readyState == 4 && this.status == 200){
+                    str= this.responseText;
+                    Restaurants = str.split("<br>");
+                    Restaurants.pop();
+                    for (var i = 0; i < Restaurants.length; i++) {
+                        populateRestaurantTable();
+                    }
+                }
+            }
+            xhttp.open("GET", "Project2.php?mode="+ mode, true);
+            xhttp.send();
+        }
+        //populate Restaurant table
+        function populateRestaurantTable(){
+            //create new row and hidden index
+            values = Restaurants[index].split(';');
+            var row = document.getElementById('Restaurants').insertRow(index + offset);
+            var cell = row.insertCell(0);
+            cell.className = "restaurantCheck";
+            if(adminMode)cell.hidden = false; 
+            else cell.hidden = true;
+            node = document.createElement("INPUT");
+            node.setAttribute("type", "checkbox");
+            node.setAttribute("name", "restaurantCheck");
+            node.setAttribute("onclick", "restaurantBox(this)");
+            node.value = values[0];
+            cell.append(node);
+            //load Restaurants into table starting from 2rd column
+            cell = row.insertCell(1)			
+            cell.innerHTML= values[0];
+            cell = row.insertCell(2);
+            cell.innerHTML = values[1] + ","+ values[2];
+            cell = row.insertCell(3);
+            node = document.createElement("button");
+            node.name = values[0];
+            node.setAttribute("onclick", "loadMenu(this)");
+            node.innerHTML = values[0] + " Menu";
+            cell.append(node);
+            cell = row.insertCell(4);
+            openingHours = values[3].split(",");
+            ul = document.createElement("ul");
+            ul.name = "restaurantOpeningHours";
+            for(i = 0; i < openingHours.length; i++){
+                var li = document.createElement("li");
+                li.innerHTML = openingHours[i];
+                ul.append(li);
+            }
+            cell.append(ul);
+            index = document.getElementById('Restaurants').rows.length - offset;
+        }
+        //check if restaurant franchise already exist
+        function checkFranchise(){
+            //get Menu
+            restaurantName = document.getElementsByName('restaurantName')[0].value;
+            mode = "getMenu"
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    str = this.responseText;
+                    if(str == "") franchiseExist = false
+                    else{
+                        franchiseExist = true;
+                        Menu = str.split("<br>");
+                        Menu.pop(); 
+                    }
+                }
+            }
+            xhttp.open("GET","Project2.php?mode="+mode+"&name="+restaurantName, false);
+            xhttp.send();
+        }
+        //check if restaurant with that address already exist
+        function checkRestaurantAddress(){
+            mode = "checkRestaurantAddress";
+            var restaurantName = document.getElementsByName('restaurantName')[0].value
+            var address1 = document.getElementsByName('address1')[0].value;
+            var address2 = document.getElementsByName('address2')[0].value;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                   if(this.responseText == "1") restAddExist = true;
+                   else restAddExist = false;
+                }
+            }
+            xhttp.open("GET","Project2.php?mode="+mode+"&name="+restaurantName+"&address1="+address1+"&address2="+address2, false);
+            xhttp.send();   
+        }
+        //check if address already exists
+        function checkAddress(){
+            mode = "checkAddress";
+            var address1 = document.getElementsByName('address1')[0].value;
+            var address2 = document.getElementsByName('address2')[0].value;
+            if(isNaN(address1) || isNaN(address2) || address1 < 0 || address2 < 0 || address1 > 100 || address2 > 100) alert("Invalid Address must be an integer between 0 and 100");
+            else{
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200){
+                        if(this.responseText == 1) addExist = true;
+                        else addExist = false;
+                    }
+                }
+                xhttp.open("GET","Project2.php?mode="+mode+"&address1="+address1+"&address2="+address2, false);
+                xhttp.send();
+            }
+        }
+        //check if restaurant exist
+        function checkRestaurant(){
+            mode = "checkRestaurant";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                   if(this.responseText == "1") restExist = true;
+                   else restExist = false;
+                }
+            }
+            xhttp.open("GET","Project2.php?mode="+mode+"&name="+restaurantEdit.split("|")[0], false);
+            xhttp.send();     
+        }
+        //if Franchise, check if first franchise , if not then dont show menu maker, if not franchise show menu maker
+        function isFranchise(source){
+            if(document.getElementsByName('restaurantName')[0].value == '' ||  document.getElementsByName('address1')[0].value  == '' || document.getElementsByName('address2')[0].value == ''){
+                alert("Please Fill Restaurant Name and Address before Proceeding ");
+                source.checked = false;
+            }
+            else{
+                checkRestaurantAddress();
+                checkAddress();
+                if(restAddExist) {
+                    alert("A Restaurant with this Name and Address already exist");
+                    source.checked = false;
+                }
+                else if (addExist) {
+                    alert(" This Address is occupied");
+                    source.checked = false;
+                }
+                else{
+                    checkFranchise();
+                    if (!franchiseExist  || document.getElementsByName("franchise")[1].checked){
+                        document.getElementsByClassName("Menu")[0].hidden = false;  
+                    }
+                    else if(franchiseExist){
+                        document.getElementsByClassName("Menu")[0].hidden = true;
+                    }
+                } 
+            }
+        }
+        //create New Menu structure
+        function addMenu(){
+            var container = document.getElementById("createMenu");
+            var menuLabel = document.createElement("h3");
+            var promptValue = prompt("Menu Type: ");
+            if(promptValue == null || promptValue == ""){}
+            else {
+                //create Menu's Division Label
+                menuLabel.name = promptValue;
+                menuLabel.innerHTML = promptValue + " ";
+                //create Label checkbox 
+                box = document.createElement("input");
+                box.type = "checkbox";
+                box.setAttribute("onclick", "menuBox(this)");
+                box.value = promptValue;
+                menuLabel.append(box);
+                container.append(menuLabel);
+                //create Menu table
+                var table = document.createElement("table");
+                table.id = promptValue;
+                var row = document.createElement("tr");
+                //create edit Menu Item checkbox space
+                var tableHeader = document.createElement("th");
+                if (adminMode) tableHeader.hidden = false;
+                else tableHeader.hidden = true;
+                row.append(tableHeader);
+                //create Menu Item Header
+                tableHeader = document.createElement("th");
+                tableHeader.innerHTML = "Menu Item";
+                row.append(tableHeader);
+                //create Price Header
+                tableHeader = document.createElement("th");
+                tableHeader.innerHTML = "Price";
+                row.append(tableHeader);
+                table.append(row);
+                container.append(table);
+                menuNum++;
+            }
+        }
+        //add new Menu Item
+        function addMenuItem(){
+            var tableExist = document.getElementById("createMenu");
+            if(tableExist.lastElementChild.tagName != "TABLE"){
+                alert("No Menu has been created");
+            }
+            else { 
+                document.getElementById("newmenuItemModel").style.display = "block";
+                document.getElementById("submitNewMenuItem").setAttribute("onclick", "submitNewMenuItem()");
+                document.getElementsByName("menuItem")[0].disabled = false;                
+            }
+        }
+        //hide Menu and Clear menu
+        function loadMenuCancel(){
+            document.getElementById("createMenu").innerHTML = "";
+            menuNum = 0;
+            document.getElementById("addRestaurantModal").style.display = "none"; 
+            inMenuEdit = false;
+            menuItemExist = false;
+            menuItemBoxesChecked = 0;
+            menuItemEdit = "";
+            menuEdit = "";
+            menuBoxesChecked = 0;
+
+        }
+        //open Menu
+        function loadMenu(source){
+            document.getElementById("addRestaurantModal").style.display = "block"; 
+            document.getElementsByClassName("Restaurant")[0].hidden = true;
+            document.getElementsByClassName("Address")[0].hidden = true;
+            document.getElementsByClassName("isFranchise")[0].hidden = true;
+            document.getElementsByClassName("openingHours")[0].hidden = true;
+            document.getElementsByClassName("Menu")[0].hidden = false;
+            document.getElementById("submitNewRest").hidden = true;
+            document.getElementById("addRestaurantCancel").setAttribute("onclick", "loadMenuCancel()"); 
+            mode = "getMenu";
+            inMenuEdit = true;
+            menuRestaurantName = source.name;
+            // alert(menuRestaurantName);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    //reload table
+                    str = this.responseText;
+                    // alert(str);
+                    Menu = str.split("<br>");
+                    Menu.pop();
+                    for(i = 0; i< Menu.length; i++){
+                        populateMenuTable(i);
+                    }
+                }
+            }
+            xhttp.open("GET","Project2.php?mode="+mode+"&name="+menuRestaurantName, false);
+            xhttp.send();
+        }
+        //populate Menu Table
+        function populateMenuTable(index){
+            var container = document.getElementById("createMenu");
+            menuItem = Menu[index].split(";");
+            // alert(container.tagName);
+            if(document.getElementById(menuItem[0]) == undefined){
+                MenuLabel = document.createElement("h3");
+                MenuLabel.innerHTML = menuItem[0];
+                MenuLabel.name = menuItem[0];
+                box = document.createElement("input");
+                box.type = "checkbox";
+                box.name = "menuBox";
+                box.value = menuItem[0];
+                box.setAttribute("onclick", "menuBox(this)");
+                if (adminMode) box.hidden = false;
+                else box.hidden = true;
+                MenuLabel.append(box);
+                container.append(MenuLabel);
+                var table = document.createElement("table");
+                table.id = menuItem[0];
+                var row = document.createElement("tr");
+                var tableHeader = document.createElement("th");
+                if (adminMode) tableHeader.hidden = false;
+                else tableHeader.hidden = true;
+                row.append(tableHeader);
+                tableHeader = document.createElement("th");
+                tableHeader.innerHTML = "Menu Item";
+                row.append(tableHeader);
+                tableHeader = document.createElement("th");
+                tableHeader.innerHTML = "Price";
+                row.append(tableHeader);
+                table.append(row);
+                container.append(table);
+                menuNum++;
+            }                
+            for(i = 0; i < index; i++){
+                prevItem = Menu[i].split(";")[1];
+                if(prevItem == menuItem[1]) menuItemExist = true;
+                else menuItemExist = false;
+            }
+            table = document.getElementById(menuItem[0]);
+            if(menuItemExist){
+                priceCell = document.getElementsByName(menuItem[1])[0].parentNode.nextElementSibling.nextElementSibling;
+                list = priceCell.getElementsByTagName("ul")[0];
+                li = document.createElement("li");
+                li.innerHTML = menuItem[2] + " $" + menuItem[3];
+                list.append(li);
+            }
+            else{
+                row = document.createElement("tr");
+                data = document.createElement("td");
+                box = document.createElement("input");
+                box.type = "checkbox";
+                box.name = menuItem[1];
+                box.setAttribute("onclick", "menuItemBox(this)");
+                if (adminMode) data.hidden = false;
+                else data.hidden = true;
+                data.append(box);
+                row.append(data);
+                data = document.createElement("td");
+                data.innerHTML = menuItem[1];
+                row.append(data);
+                data = document.createElement("td");
+                list = document.createElement("ul");
+                li = document.createElement("li");
+                li.innerHTML = menuItem[2] + " $" + menuItem[3];
+                list.append(li);
+                data.append(list);
+                row.append(data);
+                table.append(row);
+            }            
+        }
+        //add additional price to menu Item
+        function addAnotherSizePrice(size,price){
+            if(size == undefined) size = "";
+            if (price == undefined) price = "";
+            var container = document.getElementById("Price");
+            br= document.createElement("br");
+            container.append(br);
+            textNode = document.createTextNode("Size: ");
+            container.append(textNode);
+            var newSize = document.createElement("input");
+            newSize.name = "menuItemSize";
+            newSize.type = "input";
+            newSize.size = "8";
+            newSize.value = size;
+            container.append(newSize);
+            textNode = document.createTextNode(" Price: $");
+            container.append(textNode);
+            var newPrice = document.createElement("input");
+            newPrice.name = "menuItemPrice";
+            newPrice.type = "input";
+            newPrice.size = "8";
+            newPrice.value = price;
+            container.append(newPrice);
+            newPriceField++;
+
+        }
+        //close menu Item Modal and resetTable Modal
+        function addMenuItemCancel(){
+            document.getElementById("newmenuItemModel").style.display = "none";
+            document.getElementsByName('menuItem')[0].value = "";
+            var container = document.getElementById("Price");
+            container.innerHTML ="";
+            textNode = document.createTextNode("Size: ");
+            container.append(textNode);
+            var newSize = document.createElement("input");
+            newSize.name = "menuItemSize";
+            newSize.type = "input";
+            newSize.size = "8";
+            container.append(newSize);
+            textNode = document.createTextNode(" Price: $");
+            container.append(textNode);
+            var newPrice = document.createElement("input");
+            newPrice.name = "menuItemPrice";
+            newPrice.type = "input";
+            newPrice.size = "8";
+            container.append(newPrice);
+            newPriceField = 0;            
+        }
+        //submit User Input of Menu Item
+        function submitNewMenuItem(){
+            mode = "addMenuItem";
+            //add Menu Item to lastest table
+            if(inMenuEdit){
+                var restaurantName = menuRestaurantName; 
+            }
+            else var restaurantName = document.getElementsByName("restaurantName")[0].value;
+            if(menuEdit == ""){
+                var menuType = document.getElementById('createMenu').lastElementChild.previousElementSibling.innerHTML.split("<",1);
+                var latestTable = document.getElementById('createMenu').lastElementChild;
+            }
+            else{
+                var menuType = menuEdit;
+                var latestTable = document.getElementById(menuEdit);
+            } 
+            var menuItem = document.getElementsByName('menuItem')[0].value;
+            var size = document.getElementsByName('menuItemSize');
+            var price = document.getElementsByName('menuItemPrice');
+            var row = document.createElement("tr");
+            var cell = document.createElement("td");
+            box = document.createElement("input");
+            box.type = "checkbox";
+            box.name = menuItem;
+            box.setAttribute("onclick", "menuItemBox(this)");
+            if (adminMode) cell.hidden = false;
+            else cell.hidden = true;
+            cell.append(box);
+            row.append(cell);
+            cell = document.createElement("td");
+            cell.innerHTML = menuItem;
+            row.append(cell);
+            cell = document.createElement("td");
+            ul = document.createElement("ul");
+            ul.name = "sizePriceList"
+            for(i = 0; i < newPriceField + 1; i++){
+                var li = document.createElement("li");
+                if(price[i].value != ""){
+                    li.innerHTML = size[i].value + " $" + price[i].value;
+                    ul.append(li);
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function(){
+                        if(this.readyState == 4 && this.status == 200){
+                        }
+                    }
+                    xhttp.open("GET","Project2.php?mode="+mode+"&name="+restaurantName+"&menuType="+menuType+"&menuItem="+menuItem+"&size="+size[i].value+"&price="+price[i].value, false);
+                    xhttp.send();
+                }
+            }
+            cell.append(ul);
+            row.append(cell);
+            latestTable.append(row);
+
+            addMenuItemCancel();
+        }
+        //add Open Hour to List
+        function addOpenHour(){
+            var openHrList = document.getElementById("openHoursList");
+            var openHourListItems = openHrList.getElementsByTagName("li");
+            var day = document.getElementById("day").value;
+            for(i = 0; i< openHourListItems.length; i++){
+                var dia = openHourListItems[i].innerHTML.split(" ",1);
+                if(day == dia){
+                    dia = true;
+                    break;
+                }
+            }
+            if(dia == true){
+                alert("Day already exists");
+            }
+            else{
+                var fhour = document.getElementById('fromHours').value;
+                var fmin = document.getElementById('fromMin').value;
+                var fmeridiem = document.getElementById('fromMeridiem').value;
+                var thour = document.getElementById('toHours').value;
+                var tmin = document.getElementById('toMin').value;
+                var tmeridiem = document.getElementById('toMeridiem').value;
+                var listItem = document.createElement("li");
+                listItem.innerHTML = day + " " + fhour + ":" + fmin + " " + fmeridiem + " To " + thour + ":" + tmin + " "+ tmeridiem;
+                var node = document.createElement("input");
+                node.type = "checkbox";
+                node.value = day;
+                node.name = "listchecks";
+                listItem.append(node);
+                openHrList.append(listItem);
+            }     
+        }
+        //edit Open Hours on List
+        function editOpenHour(){
+            var listchecks = document.getElementsByName('listchecks');
+            var checkedDay;
+            for(i = 0; i < listchecks.length; i++){
+                if(listchecks[i].checked) checkedDay = listchecks[i].value;
+            }
+            var openHrList = document.getElementById("openHoursList");
+            var openHourListItems = openHrList.getElementsByTagName("li");
+            var index;
+            for(i = 0; i< openHourListItems.length; i++){
+                var dia = openHourListItems[i].innerHTML.split(" ",1);
+                if(dia == checkedDay){
+                    index = i;
+                    break;
+                }
+            }
+            var day = document.getElementById("day").value;
+            for(i = 0; i< openHourListItems.length; i++){
+                var dia = openHourListItems[i].innerHTML.split(" ",1);
+                if(day == dia && index!= i){
+                    dia = true;
+                    break;
+                }
+            }
+            if(dia == true){
+                alert("Day already exists");
+            }
+            else{
+                var fhour = document.getElementById('fromHours').value;
+                var fmin = document.getElementById('fromMin').value;
+                var fmeridiem = document.getElementById('fromMeridiem').value;
+                var thour = document.getElementById('toHours').value;
+                var tmin = document.getElementById('toMin').value;
+                var tmeridiem = document.getElementById('toMeridiem').value;
+                openHourListItems[index].innerHTML = day + " " + fhour + ":" + fmin + " " + fmeridiem + " To " + thour + ":" + tmin + " "+ tmeridiem; 
+            }
+        }
+        //edit Restaurant Open Hours
+        function editRestaurantHours(){
+            if(restaurantEdit == undefined) alert("No restaurant Has been selected");
+            else {
+                hrEditsMode =true;
+                addRestaurant();
+                document.getElementsByClassName("Restaurant")[0].hidden = true;
+                document.getElementsByClassName("Address")[0].hidden = true;
+                document.getElementsByClassName("isFranchise")[0].hidden = true;
+                document.getElementsByClassName("Menu")[0].hidden = true;
+
+                document.getElementById("submitNewRest").setAttribute("onclick", "editOpenHour()");
+                document.getElementById("submitNewRest").innerHTML = "Edit Opening Hour";
+                document.getElementById("addRestaurantCancel").setAttribute("onclick", "editRestaurantCancel()");
+                document.getElementById("addRestaurantCancel").innerHTML = "Save Changes";
+                var toggleRest = restaurantEdit.split("|");
+                var targetOpHr;
+                for(i = 0; i< Restaurants.length; i++){
+                    if(Restaurants[i].split(";")[0] == toggleRest[0] && toggleRest[1] == Restaurants[i].split(";")[1]+ "," +Restaurants[i].split(";")[2] ) {
+                        targetOpHr = Restaurants[i].split(";")[3];
+                        break;
+                    }
+                }
+                var openHrList = document.getElementById("openHoursList");
+                listOpHr= targetOpHr.split(",");
+                for(i= 0; i < listOpHr.length; i++){
+                    var listItem = document.createElement("li");
+                    listItem.innerHTML = listOpHr[i];
+                    var node = document.createElement("input");
+                    node.type = "checkbox";
+                    node.value = listOpHr[i].split(" ",1);
+                    node.name = "listchecks";
+                    listItem.append(node);
+                    openHrList.append(listItem);
+                }
+            }
+        }
+        //hide Menu Edit Modal and clear
+        function editRestaurantCancel(){
+            hrEditsMode = false;
+            document.getElementById("addRestaurantModal").style.display = "none";
+            var openHrList = document.getElementById("openHoursList");
+            var openHourListItems = openHrList.getElementsByTagName("li");
+            var openHours = "";
+            for(i = 0; i< openHourListItems.length; i++){
+                if(i == openHourListItems.length - 1) openHours += openHourListItems[i].innerHTML.split("<")[0];
+                else openHours += openHourListItems[i].innerHTML.split("<")[0] + ",";
+            }
+            mode= "updateRestaurant"
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    var openHrList = document.getElementById("openHoursList");
+                    var openHourListItems = openHrList.getElementsByTagName("li");
+                    for(i = openHourListItems.length; i > 0; i--){
+                        openHrList.removeChild(openHrList.childNodes[i]);
+                    }
+                }
+            }
+            xhttp.open("GET","Project2.php?mode="+mode+"&name="+restaurantEdit.split("|")[0]+"&address1="+restaurantEdit.split("|")[1].split(",")[0]+"&address2="+restaurantEdit.split("|")[1].split(",")[1]+"&openHours="+openHours, false);
+            xhttp.send();
+            resetTable(); 
+        }
+        //edit menu Item
+        function editMenuItem(){
+            if(menuItemBoxesChecked < 1) alert("Please Select an Item to Edit");
+            else {
+                if(inMenuEdit){
+                    var restaurantName = menuRestaurantName; 
+                }
+                else var restaurantName = document.getElementsByName("restaurantName")[0].value;
+                document.getElementById("newmenuItemModel").style.display = "block";                
+                priceCell = menuItemEdit.parentNode.nextElementSibling.nextElementSibling.getElementsByTagName("ul")[0].getElementsByTagName("li");
+                size = priceCell[0].innerHTML.split("$")[0];
+                price = priceCell[0].innerHTML.split("$")[1];
+                document.getElementsByName("menuItem")[0].value = menuItemEdit.parentNode.nextElementSibling.innerHTML;
+                document.getElementsByName("menuItem")[0].disabled = true;                
+                document.getElementsByName("menuItemSize")[0].value = size;
+                document.getElementsByName("menuItemPrice")[0].value = price;
+                for(i = 1; i < priceCell.length; i++){
+                    size = priceCell[i].innerHTML.split("$")[0];
+                    price = priceCell[i].innerHTML.split("$")[1];
+                    addAnotherSizePrice(size,price);
+                }
+                document.getElementById("submitNewMenuItem").setAttribute("onclick", "saveMenuItemChanges()");
+            } 
+        }
+        //save changes to menu 
+        function saveMenuItemChanges(){ 
+            if(inMenuEdit){
+                var restaurantName = menuRestaurantName; 
+            }
+            else var restaurantName = document.getElementsByName("restaurantName")[0].value;
+            menuType = menuItemEdit.parentNode.parentNode.parentNode.id;
+            var menuItem = document.getElementsByName('menuItem')[0].value;
+            var size = document.getElementsByName('menuItemSize');
+            var price = document.getElementsByName('menuItemPrice');
+            mode = "deleteMenuItem";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    mode = "addMenuItem";
+                    for(i = 0; i < newPriceField + 1; i++){
+                        if(price[i].value != ""){
+                            var xhttp2 = new XMLHttpRequest();
+                            xhttp2.onreadystatechange = function(){
+                                if(this.readyState == 4 && this.status == 200){
+                                }
+                            }
+                            xhttp2.open("GET","Project2.php?mode="+mode+"&name="+restaurantName+"&menuType="+menuType+"&menuItem="+menuItem+"&size="+size[i].value+"&price="+price[i].value, false);
+                            xhttp2.send();
+                        }
+                    } 
+                }
+            }
+            xhttp.open("GET","Project2.php?mode="+mode+"&name="+restaurantName+"&menuType="+menuType+"&menuItem="+menuItem, false);
+            xhttp.send();
+            addMenuItemCancel();
+            resetMenu();
+              
+        }
+        //delete Menu item
+        function deleteMenuItem(){
+            if(menuItemEdit == "") alert("Please select an item to Delete");
+            else{ 
+                if(inMenuEdit) var restaurantName = menuRestaurantName; 
+                else var restaurantName = document.getElementsByName("restaurantName")[0].value;
+                mode = "getMenu"
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200){
+                        str = this.responseText;
+                        Menu = str.split("<br>");
+                        Menu.pop(); 
+                    }
+                }
+                xhttp.open("GET","Project2.php?mode="+mode+"&name="+restaurantName, false);
+                xhttp.send();
+                if(Menu.length <= 1)alert("Must be a minimum of 1 item on menu");
+                else{
+                    mode = "deleteMenuItem";
+                    var menuType = menuItemEdit.parentNode.parentNode.parentNode.id;
+                    menuItem = menuItemEdit.parentNode.nextElementSibling.innerHTML;
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function(){
+                        if(this.readyState == 4 && this.status == 200){
+                            resetMenu();
+                        }
+                    }
+                    xhttp.open("GET","Project2.php?mode="+mode+"&name="+restaurantName+"&menuType="+menuType+"&menuItem="+menuItem, false);
+                    xhttp.send();
+                }  
+            }
+        }
+        //delete Restaurant and if no more franchise exist delete menu;
+        function deleteRestaurant(){
+            if(restaurantEdit == undefined) alert("No restaurant Has been selected");
+            else {
+                mode = "deleteRestaurant";
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200){
+                        checkRestaurant();
+                        if(!restExist) deleteMenu();
+                        resetTable();
+                    }
+                }
+                xhttp.open("GET","Project2.php?mode="+mode+"&name="+restaurantEdit.split("|")[0]+"&address1="+restaurantEdit.split("|")[1].split(",")[0]+"&address2="+restaurantEdit.split("|")[1].split(",")[1], false);
+                xhttp.send();
+            }
+        }
+        //delete Restaurant menu
+        function deleteMenu(){
+
+            mode = "deleteMenu";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                }
+            }
+            xhttp.open("GET","Project2.php?mode="+mode+"&name="+restaurantEdit.split("|")[0], false);
+            xhttp.send();
+        }
+        //load Open Hour to be Edited
+        function restaurantBox(source){
+            if(source.checked){
+                restaurantBoxesChecked++;
+                if(restaurantBoxesChecked == 1){
+                    restaurantEdit = source.value + "|" + source.parentNode.nextElementSibling.nextElementSibling.innerHTML; 
+                }
+                else alert("Cannot edit/delete more than one at a time"); 
+            }
+            else {
+                restaurantBoxesChecked--;
+                if(restaurantBoxesChecked < 1){
+                    restaurantEdit = ""; 
+                }
+            }
+        }
+        //load Menu Section to be Edited
+        function menuBox(source){
+            if(source.checked){
+                menuBoxesChecked++;
+                if(menuBoxesChecked == 1){
+                    menuEdit = source.value; 
+                }
+                else alert("Cannot edit/delete more than one at a time"); 
+            }
+            else {
+                menuBoxesChecked--;
+                if(menuBoxesChecked < 1){
+                    menuEdit = ""; 
+                }
+            }
+        }
+        //load Menu Item to be Edited
+        function menuItemBox(source){
+            if(source.checked){
+                menuItemBoxesChecked++;
+                if(menuItemBoxesChecked == 1){
+                    menuItemEdit = source; 
+                }
+                else alert("Cannot edit/delete more than one at a time"); 
+            }
+            else {
+                menuItemBoxesChecked--;
+                if(menuItemBoxesChecked < 1){
+                    menuItemEdit = ""; 
+                }
+            }
+        }
+        //refresh table
+        function resetTable() {
+            rows = document.getElementById('Restaurants').rows.length - offset;
+            while (rows != 0){
+                document.getElementById('Restaurants').deleteRow(rows);
+                rows--;
+            }
+            Restaurants = [];
+            restaurantEdit = "";
+            restaurantBoxesChecked = 0;
+            index = document.getElementById('Restaurants').rows.length - offset;
+            loadRestaurant();
+        }
+        //refresh menu
+        function resetMenu(){
+            document.getElementById("createMenu").innerHTML = "";
+            menuItemExist = false;
+            menuItemBoxesChecked = 0;
+            menuItemEdit = "";
+            menuEdit = "";
+            menuBoxesChecked = 0;
+            mode = "getMenu";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    //reload table
+                    str = this.responseText;
+                    // alert(str);
+                    Menu = str.split("<br>");
+                    Menu.pop();
+                    for(i = 0; i< Menu.length; i++){
+                        populateMenuTable(i);
+                    }
+                }
+            }
+            xhttp.open("GET","Project2.php?mode="+mode+"&name="+menuRestaurantName, false);
+            xhttp.send();            
+        }
+        //sort by Name
+        function sortByName(){
+            Restaurants.sort(function(a,b){
+                if(a.split(";",1) < b.split(";",1)) return -1;
+                if(a.split(";",1) > b.split(";",1)) return 1;
+                if (a.split(";",1) == b.split(";",1)) return 0;
+            });
+            rows = document.getElementById('Restaurants').rows.length - offset;
+            while (rows != 0){
+                document.getElementById('Restaurants').deleteRow(rows);
+                rows--;
+            }
+            index = document.getElementById('Restaurants').rows.length - offset;
+            for(k = 0; k < Restaurants.length; k++){
+                populateRestaurantTable();
+            }
+        }
+        //sort by user inputted address
+        function sortByAddress(){
+            userX = document.getElementsByName("userX")[0].value;
+            userY = document.getElementsByName("userY")[0].value;
+
+            if(isNaN(userX) || isNaN(userY) || userX < 0 || userY < 0 || userX > 100 || userY > 100) alert("Invalid Address must be between 0 and 100");
+            else {
+                Restaurants.sort(function(a,b){
+
+                    if(Math.abs(userX - a.split(";")[1]) < Math.abs(userX - b.split(";")[1])) return -1;
+                    if(Math.abs(userX - a.split(";")[1]) > Math.abs(userX - b.split(";")[1])) return 1;
+                    if(Math.abs(userX - a.split(";")[1]) == Math.abs(userX - b.split(";")[1])) {
+                        if(Math.abs(userY - a.split(";")[2]) < Math.abs(userY - b.split(";")[2]))return -1;
+                        if(Math.abs(userY - a.split(";")[2]) > Math.abs(userY - b.split(";")[2]))return 1;
+                        if(Math.abs(userY - a.split(";")[2]) == Math.abs(userY - b.split(";")[2])){
+                            if(a.split(";",1) < b.split(";",1)) return -1;
+                            if(a.split(";",1) > b.split(";",1)) return 1;
+                            if (a.split(";",1) == b.split(";",1)) return 0;
+                        } 
+                    }
+                })
+                rows = document.getElementById('Restaurants').rows.length - offset;
+                while (rows != 0){
+                    document.getElementById('Restaurants').deleteRow(rows);
+                    rows--;
+                }
+                index = document.getElementById('Restaurants').rows.length - offset;
+                for(j = 0; j < Restaurants.length; j++){
+                    populateRestaurantTable();
+                }
+            }
+        }
+    </script>
+</html>
